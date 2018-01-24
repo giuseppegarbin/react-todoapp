@@ -5,6 +5,8 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
+    "moment": "^2.20.1",
+    "moment-with-locales-es6": "^2.18.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-dom": "^16.2.0",
