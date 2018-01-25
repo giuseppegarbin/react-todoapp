@@ -1,18 +1,50 @@
 import React, { Component } from 'react';
 import Task from './Task.js';
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
+const TASK_QUERY = gql`
+  query taskQuery {
+    allTasks {
+      id
+      time
+      title
+      description
+      status
+    }
+  }
+`
+
 
 class TaskList extends Component {
     render() {
+      // Loading
+      if (this.props.taskQuery && this.props.taskQuery.loading) {
+        return <div>Loading</div>
+      }
+    
+      // Error
+      if (this.props.taskQuery && this.props.taskQuery.error) {
+        return <div>Error</div>
+      }
+    
+      // Correct
+      const tasksToRender = this.props.taskQuery.allTasks
+      console.log(tasksToRender)
+
       return (
         <div>
-            <Task time="12" period="AM" activity_title="Finish Tutorial Series" activity_description="#ReactForNewbies" />
-            <Task time="9" period="AM" activity_title="Meeting with Team Leads" activity_description="New Project Kickoff" />
-            <Task time="11" period="AM" activity_title="Call Mom" activity_description="Return her call before she kills me" />
-            <Task time="3" period="PM" activity_title="Fix Wifey's website" activity_description="FB Ads Integration not working" />
-            <Task time="6" period="PM" activity_title="Do DB Backups" activity_description="Related to upcoming server migration" />
+            {tasksToRender.map(task => 
+              <Task
+                key={task.id}
+                id={task.id}
+                time={task.time}
+                title={task.title}
+                description={task.description}/>
+            )}
         </div>
       );
     }
   }
   
-  export default TaskList;
+  export default graphql(TASK_QUERY, { name: 'taskQuery' }) (TaskList)

@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import Date from './Date.js';
 import TaskList from './TaskList.js';
-import Avatar from './Avatar.js';
+import Navigation from './Navigation.js';
 import AddButton from './AddButton.js';
+import {Grid} from 'react-bootstrap';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div style={{padding: '30px 30px'}}>
-        <Avatar />
-        <br />
-        <Date />
-        <br />
-        <TaskList />
-        <br />
-        <AddButton />
+      <div>
+        <Navigation />
+        <Grid>
+          <Date />
+          <br />
+          <TaskList />
+          <br />
+          <AddButton />
+        </Grid>
       </div>
     );
   }
